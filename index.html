@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Ahmed Oumar El-Shangiti</title>
+<meta name="description" content="Ahmed Oumar El-Shangiti — PhD student in NLP at MBZUAI, working on the interpretability of large language and vision-language models." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --ink: #1a1a1a;
+    --muted: #5f6368;
+    --faint: #8a8f98;
+    --line: #e7e4dd;
+    --bg: #faf8f3;
+    --card: #ffffff;
+    --accent: #8a3324;     /* deep terracotta */
+    --accent-soft: #f3e6e1;
+    --sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    --serif: "Newsreader", Georgia, "Times New Roman", serif;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 16px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  .wrap { max-width: 760px; margin: 0 auto; padding: 0 28px; }
+
+  /* ---------- Header ---------- */
+  header {
+    padding: 84px 0 36px;
+    border-bottom: 1px solid var(--line);
+  }
+  .header-grid {
+    display: flex;
+    align-items: flex-start;
+    gap: 36px;
+  }
+  .header-text { flex: 1; min-width: 0; }
+  .avatar {
+    flex: 0 0 auto;
+    width: 132px;
+    height: 132px;
+    border-radius: 50%;
+    overflow: hidden;
+    background: var(--accent-soft);
+    border: 1px solid var(--line);
+    position: relative;
+    margin-top: 6px;
+  }
+  .avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .avatar--empty::after {
+    content: "AO";
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--serif);
+    font-size: 2.6rem;
+    color: var(--accent);
+    letter-spacing: 0.02em;
+  }
+  .eyebrow {
+    font-size: 0.78rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 600;
+    margin-bottom: 18px;
+  }
+  h1 {
+    font-family: var(--serif);
+    font-weight: 500;
+    font-size: clamp(2.4rem, 6vw, 3.4rem);
+    line-height: 1.05;
+    letter-spacing: -0.01em;
+    margin: 0 0 18px;
+  }
+  .tagline {
+    font-family: var(--serif);
+    font-size: 1.28rem;
+    line-height: 1.5;
+    color: var(--muted);
+    font-weight: 400;
+    max-width: 60ch;
+    margin: 0 0 26px;
+  }
+  .tagline em { color: var(--ink); font-style: italic; }
+  .links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 8px;
+    margin-top: 4px;
+  }
+  .links a {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--ink);
+    border: 1px solid var(--line);
+    background: var(--card);
+    padding: 7px 14px;
+    border-radius: 999px;
+    transition: border-color .15s, color .15s, transform .15s;
+  }
+  .links a:hover {
+    text-decoration: none;
+    border-color: var(--accent);
+    color: var(--accent);
+    transform: translateY(-1px);
+  }
+
+  /* ---------- Nav ---------- */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: rgba(250, 248, 243, 0.85);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--line);
+  }
+  nav .wrap {
+    display: flex;
+    gap: 26px;
+    padding-top: 14px;
+    padding-bottom: 14px;
+    font-size: 0.86rem;
+  }
+  nav a {
+    color: var(--muted);
+    font-weight: 500;
+    letter-spacing: 0.01em;
+  }
+  nav a:hover { color: var(--accent); text-decoration: none; }
+
+  /* ---------- Sections ---------- */
+  section { padding: 52px 0; border-bottom: 1px solid var(--line); }
+  section:last-of-type { border-bottom: none; }
+  h2 {
+    font-family: var(--serif);
+    font-size: 1.05rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--faint);
+    margin: 0 0 30px;
+  }
+  p { margin: 0 0 16px; }
+  .lead { font-size: 1.05rem; color: #333; }
+  .lead a { font-weight: 500; }
+
+  /* ---------- Timeline (experience / education) ---------- */
+  .entry {
+    display: grid;
+    grid-template-columns: 130px 1fr;
+    gap: 18px;
+    padding: 16px 0;
+    border-top: 1px solid var(--line);
+  }
+  .entry:first-of-type { border-top: none; }
+  .entry .when {
+    font-size: 0.82rem;
+    color: var(--faint);
+    font-variant-numeric: tabular-nums;
+    padding-top: 2px;
+  }
+  .entry .role { font-weight: 600; color: var(--ink); }
+  .entry .org { color: var(--muted); font-size: 0.95rem; }
+  .entry .note { color: var(--muted); font-size: 0.92rem; margin-top: 4px; }
+
+  /* ---------- Publications ---------- */
+  .pub {
+    display: grid;
+    grid-template-columns: 92px 1fr;
+    gap: 20px;
+    padding: 18px 0;
+    border-top: 1px solid var(--line);
+  }
+  .pub:first-of-type { border-top: none; }
+  .thumb {
+    width: 92px;
+    height: 68px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--serif);
+    font-weight: 600;
+    font-size: 0.92rem;
+    color: #fff;
+    letter-spacing: 0.02em;
+    text-align: center;
+    line-height: 1.15;
+    padding: 6px;
+    box-shadow: inset 0 0 0 1px rgba(0,0,0,0.05);
+    overflow: hidden;
+  }
+  .thumb img { width: 100%; height: 100%; object-fit: cover; border-radius: 8px; }
+  .thumb.naacl  { background: linear-gradient(135deg, #8a3324, #c25e3f); }
+  .thumb.acl    { background: linear-gradient(135deg, #b1422d, #e08a5b); }
+  .thumb.arabic { background: linear-gradient(135deg, #6b4a8a, #a06fc0); }
+  .thumb.emnlp  { background: linear-gradient(135deg, #2f5d62, #5a9aa0); }
+  .thumb.review { background: linear-gradient(135deg, #4a4a4a, #7a7a7a); }
+  .thumb.work   { background: linear-gradient(135deg, #355c7d, #6c8fb0); }
+  .pub .title {
+    font-family: var(--serif);
+    font-size: 1.18rem;
+    font-weight: 500;
+    line-height: 1.35;
+    color: var(--ink);
+    margin-bottom: 5px;
+  }
+  .pub .meta { font-size: 0.9rem; color: var(--muted); }
+  .pub .authors em { font-style: normal; color: var(--ink); font-weight: 600; }
+  .badge {
+    display: inline-block;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--accent);
+    background: var(--accent-soft);
+    padding: 2px 9px;
+    border-radius: 5px;
+    margin-left: 6px;
+    vertical-align: middle;
+  }
+  .badge.muted { color: var(--muted); background: #efede7; }
+
+  /* ---------- Talks ---------- */
+  .talk {
+    display: grid;
+    grid-template-columns: 56px 1fr auto;
+    align-items: center;
+    gap: 18px;
+    padding: 16px 0;
+    border-top: 1px solid var(--line);
+  }
+  .talk:first-of-type { border-top: none; }
+  .talk-logo {
+    width: 56px;
+    height: 56px;
+    border-radius: 12px;
+    background: var(--card);
+    border: 1px solid var(--line);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+    font-family: var(--serif);
+    font-weight: 600;
+    font-size: 1.2rem;
+    color: var(--accent);
+  }
+  .talk-logo img { width: 100%; height: 100%; object-fit: contain; padding: 9px; }
+  .talk .where {
+    font-weight: 600;
+    color: var(--ink);
+  }
+  .talk .place {
+    font-size: 0.82rem;
+    color: var(--faint);
+    text-align: right;
+  }
+  .talk .ttl { color: var(--muted); font-size: 0.95rem; margin-top: 2px; }
+
+  /* ---------- Lists ---------- */
+  .tags { display: flex; flex-wrap: wrap; gap: 8px; }
+  .tag {
+    font-size: 0.84rem;
+    color: var(--muted);
+    background: var(--card);
+    border: 1px solid var(--line);
+    padding: 5px 12px;
+    border-radius: 6px;
+  }
+  ul.clean { list-style: none; padding: 0; margin: 0; }
+  ul.clean li { padding: 6px 0; color: var(--muted); }
+  ul.clean li strong { color: var(--ink); font-weight: 600; }
+
+  footer {
+    padding: 40px 0 64px;
+    color: var(--faint);
+    font-size: 0.84rem;
+    text-align: center;
+  }
+
+  @media (max-width: 620px) {
+    header { padding-top: 56px; }
+    .header-grid { flex-direction: column-reverse; align-items: flex-start; gap: 22px; }
+    .avatar { width: 96px; height: 96px; }
+    .entry { grid-template-columns: 1fr; gap: 4px; }
+    .entry .when { padding-top: 0; }
+    .talk { grid-template-columns: 44px 1fr; }
+    .talk-logo { width: 44px; height: 44px; }
+    .talk .place { grid-column: 2; text-align: left; }
+    .pub { grid-template-columns: 72px 1fr; gap: 14px; }
+    .thumb { width: 72px; height: 56px; font-size: 0.8rem; }
+    nav .wrap { gap: 18px; overflow-x: auto; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap header-grid">
+    <div class="header-text">
+    <div class="eyebrow">PhD Student · Natural Language Processing</div>
+    <h1>Ahmed Oumar El-Shangiti</h1>
+    <p class="tagline">
+      I study the <em>interpretability</em> of large language and vision-language models —
+      how they represent number, reason across modalities, and where that reasoning breaks down.
+      Based at <em>MBZUAI</em>, Abu Dhabi.
+    </p>
+    <div class="links">
+      <a href="mailto:ahmed.oumar@mbzuai.ac.ae">✉ Email</a>
+      <a href="https://scholar.google.com/" target="_blank" rel="noopener">Google Scholar</a>
+      <a href="https://www.linkedin.com/in/ahmed-oumar" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://github.com/" target="_blank" rel="noopener">GitHub</a>
+      <a href="Ahmed_Oumar_resume__CV.pdf" target="_blank" rel="noopener">CV (PDF)</a>
+    </div>
+    </div>
+    <div class="avatar" id="avatar">
+      <img src="assets/profile.jpg" alt="Ahmed Oumar El-Shangiti"
+           onerror="document.getElementById('avatar').classList.add('avatar--empty'); this.remove();" />
+    </div>
+  </div>
+</header>
+
+<nav>
+  <div class="wrap">
+    <a href="#about">About</a>
+    <a href="#research">Research</a>
+    <a href="#publications">Publications</a>
+    <a href="#talks">Talks</a>
+    <a href="#experience">Experience</a>
+  </div>
+</nav>
+
+<main class="wrap">
+
+  <section id="about">
+    <h2>About</h2>
+    <p class="lead">
+      I'm a PhD student in NLP at the Mohamed bin Zayed University of Artificial Intelligence
+      (MBZUAI). My research centers on <strong>mechanistic interpretability</strong>: probing
+      and steering the internal representations of LLMs and vision-language models to understand
+      numerical reasoning, counting, and the conditions under which model evidence collapses.
+    </p>
+    <p>
+      Alongside my doctoral work I am the founder of <a href="https://databayt.ai" target="_blank" rel="noopener">DataBayt.AI</a>,
+      building open-source software and datasets for the AI community, and I collaborate with the
+      <a href="https://www.informatik.tu-darmstadt.de/ukp/ukp_home/index.en.jsp" target="_blank" rel="noopener">UKP Lab</a>
+      and the RIKEN Advanced Intelligence Project. I previously worked on generative AI for
+      low-resource languages, machine translation, and large-scale dataset design.
+    </p>
+  </section>
+
+  <section id="research">
+    <h2>Research Interests</h2>
+    <div class="tags">
+      <span class="tag">Mechanistic interpretability</span>
+      <span class="tag">Vision-language models</span>
+      <span class="tag">Numerical reasoning &amp; counting circuits</span>
+      <span class="tag">Probing &amp; activation steering</span>
+      <span class="tag">Low-resource &amp; Arabic NLP</span>
+      <span class="tag">Multimodal reasoning</span>
+    </div>
+  </section>
+
+  <section id="publications">
+    <h2>Selected Publications</h2>
+
+    <div class="pub">
+      <div class="thumb review">Under<br>review</div>
+      <div>
+      <div class="title">From Detection to Correction: Activation-Based Error Probes for VLM Counting</div>
+      <div class="meta">
+        <span class="authors"><em>Ahmed Oumar El-Shangiti</em> et al.</span>, 2026
+        <span class="badge muted">Under review</span>
+      </div>
+      </div>
+    </div>
+
+    <div class="pub">
+      <div class="thumb naacl">NAACL<br>2025</div>
+      <div>
+      <div class="title">The Geometry of Numerical Reasoning: Language Models Compare Numeric Properties in Linear Subspaces</div>
+      <div class="meta">
+        <span class="authors"><em>Ahmed Oumar El-Shangiti</em> et al.</span>, NAACL 2025
+        <span class="badge">Oral</span>
+      </div>
+      </div>
+    </div>
+
+    <div class="pub">
+      <div class="thumb acl">ACL<br>2025</div>
+      <div>
+      <div class="title">Palm: A Culturally Inclusive and Linguistically Diverse Dataset for Arabic LLMs</div>
+      <div class="meta">
+        <span class="authors">Alwajih et al.</span>, ACL 2025
+        <span class="badge">Best Resource Paper Award</span>
+      </div>
+      </div>
+    </div>
+
+    <div class="pub">
+      <div class="thumb arabic">Arabic<br>NLP</div>
+      <div>
+      <div class="title">Arabic Automatic Story Generation with Large Language Models</div>
+      <div class="meta">
+        <span class="authors"><em>Ahmed Oumar El-Shangiti</em> et al.</span>, ArabicNLP 2024
+        <span class="badge">Oral</span>
+      </div>
+      </div>
+    </div>
+
+    <div class="pub">
+      <div class="thumb work">Working<br>paper</div>
+      <div>
+      <div class="title">Number Representations in LLMs: A Computational Parallel to Human Perception</div>
+      <div class="meta"><span class="authors"><em>Ahmed Oumar El-Shangiti</em> et al.</span></div>
+      </div>
+    </div>
+
+    <div class="pub">
+      <div class="thumb emnlp">EMNLP<br>2024</div>
+      <div>
+      <div class="title">Casablanca: Data and Models for Multidialectal Arabic Speech Recognition</div>
+      <div class="meta"><span class="authors">Talafha et al.</span>, EMNLP 2024</div>
+      </div>
+    </div>
+
+    <div class="pub">
+      <div class="thumb emnlp">EMNLP<br>2023</div>
+      <div>
+      <div class="title">Dolphin: A Challenging and Diverse Benchmark for Arabic NLG</div>
+      <div class="meta"><span class="authors">Nagoudi et al.</span>, Findings of EMNLP 2023</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="talks">
+    <h2>Invited Talks</h2>
+
+    <div class="talk">
+      <div class="talk-logo">G<img src="https://logo.clearbit.com/grammarly.com" alt="Grammarly"
+        onerror="this.remove()" /></div>
+      <div>
+        <div class="where">Grammarly</div>
+        <div class="ttl">Interpretability of reasoning in language and vision-language models</div>
+      </div>
+      <div class="place">Research talk</div>
+    </div>
+
+    <div class="talk">
+      <div class="talk-logo">I<img src="https://logo.clearbit.com/imperial.ac.uk" alt="Imperial College London"
+        onerror="this.remove()" /></div>
+      <div>
+        <div class="where">Imperial College London</div>
+        <div class="ttl">The geometry of numerical reasoning in large language models</div>
+      </div>
+      <div class="place">Invited talk</div>
+    </div>
+
+    <div class="talk">
+      <div class="talk-logo">T<img src="https://logo.clearbit.com/tu-darmstadt.de" alt="TU Darmstadt"
+        onerror="this.remove()" /></div>
+      <div>
+        <div class="where">TU Darmstadt — UKP Lab</div>
+        <div class="ttl">Interpretability of vision-language models</div>
+      </div>
+      <div class="place">Lab talk · Darmstadt</div>
+    </div>
+  </section>
+
+  <section id="experience">
+    <h2>Experience</h2>
+
+    <div class="entry">
+      <div class="when">Dec 2025 — Present</div>
+      <div>
+        <div class="role">Founder &amp; CEO</div>
+        <div class="org">DataBayt.AI · Abu Dhabi, UAE</div>
+        <div class="note">Leading development of open-source software and datasets for the AI community.</div>
+      </div>
+    </div>
+
+    <div class="entry">
+      <div class="when">Jun 2025 — Aug 2025</div>
+      <div>
+        <div class="role">Guest Researcher</div>
+        <div class="org">UKP Lab, TU Darmstadt · Germany</div>
+        <div class="note">Research on the interpretability of vision-language models (VLMs).</div>
+      </div>
+    </div>
+
+    <div class="entry">
+      <div class="when">Aug 2024 — Present</div>
+      <div>
+        <div class="role">NLP Research Fellow</div>
+        <div class="org">RIKEN Advanced Intelligence Project · Japan</div>
+        <div class="note">Interpretability of large language models.</div>
+      </div>
+    </div>
+
+    <div class="entry">
+      <div class="when">Mar 2023 — Aug 2025</div>
+      <div>
+        <div class="role">NLP Research Associate</div>
+        <div class="org">MBZUAI · Abu Dhabi, UAE</div>
+        <div class="note">Published at ACL, EMNLP, and NAACL on generative AI for low-resource languages, machine translation, and reasoning &amp; interpretability in LLMs.</div>
+      </div>
+    </div>
+
+    <div class="entry">
+      <div class="when">Oct 2022 — Feb 2023</div>
+      <div>
+        <div class="role">NLP Research Assistant Intern</div>
+        <div class="org">Qatar Computing Research Institute (QCRI)</div>
+        <div class="note">Propaganda detection for Arabic and multilingual settings — 2nd place, SemEval 2023 Task 3.</div>
+      </div>
+    </div>
+
+    <div class="entry">
+      <div class="when">Feb 2022 — Jun 2022</div>
+      <div>
+        <div class="role">NLP Engineer Intern</div>
+        <div class="org">Walmart Global Tech</div>
+        <div class="note">Optimized production-scale LLMs for product-type prediction — 40–60% model-size reduction with maintained performance.</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="education">
+    <h2>Education &amp; Awards</h2>
+    <ul class="clean">
+      <li><strong>PhD Student, NLP</strong> — MBZUAI (from 2025)</li>
+      <li><strong>BSc, Mathematics &amp; Computer Science</strong> — Cadi Ayyad University (2021)</li>
+      <li><strong>Best Resource Paper Award</strong>, ACL 2025</li>
+      <li><strong>Facebook Secure &amp; Private AI Scholarship</strong>, 2019</li>
+      <li><strong>1st place</strong>, Arabic Misogyny Identification Shared Task</li>
+      <li><strong>2nd place</strong>, SemEval 2023 Task 3</li>
+    </ul>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    © <span id="year"></span> Ahmed Oumar El-Shangiti · Abu Dhabi, UAE
+  </div>
+</footer>
+
+<script>document.getElementById("year").textContent = new Date().getFullYear();</script>
+</body>
+</html>
