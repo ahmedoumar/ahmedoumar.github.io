@@ -250,18 +250,18 @@
   /* ---------- Talks ---------- */
   .talk {
     display: grid;
-    grid-template-columns: 56px 1fr auto;
+    grid-template-columns: 104px 1fr auto;
     align-items: center;
-    gap: 18px;
-    padding: 16px 0;
+    gap: 20px;
+    padding: 18px 0;
     border-top: 1px solid var(--line);
   }
   .talk:first-of-type { border-top: none; }
-  .talk-logo {
-    width: 56px;
-    height: 56px;
-    border-radius: 12px;
-    background: var(--card);
+  .talk-pic {
+    width: 104px;
+    height: 76px;
+    border-radius: 10px;
+    background: var(--accent-soft);
     border: 1px solid var(--line);
     display: flex;
     align-items: center;
@@ -270,20 +270,41 @@
     position: relative;
     font-family: var(--serif);
     font-weight: 600;
-    font-size: 1.2rem;
+    font-size: 1.7rem;
     color: var(--accent);
   }
-  .talk-logo img { width: 100%; height: 100%; object-fit: contain; padding: 9px; }
-  .talk .where {
-    font-weight: 600;
-    color: var(--ink);
+  .talk-pic::before {
+    content: attr(data-letter);
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
-  .talk .place {
-    font-size: 0.82rem;
-    color: var(--faint);
-    text-align: right;
-  }
+  .talk-pic img { position: relative; width: 100%; height: 100%; object-fit: cover; display: block; }
+  .talk-pic img.is-logo { object-fit: contain; padding: 14px; background: #fff; }
+  .talk .where { font-weight: 600; color: var(--ink); }
   .talk .ttl { color: var(--muted); font-size: 0.95rem; margin-top: 2px; }
+  .talk .format { font-size: 0.82rem; color: var(--faint); margin-top: 4px; }
+  .talk .when {
+    font-size: 0.86rem;
+    color: var(--muted);
+    text-align: right;
+    white-space: nowrap;
+    font-variant-numeric: tabular-nums;
+  }
+  .talk .upcoming {
+    display: inline-block;
+    margin-top: 5px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--accent);
+    background: var(--accent-soft);
+    padding: 2px 8px;
+    border-radius: 5px;
+  }
 
   /* ---------- Lists ---------- */
   .tags { display: flex; flex-wrap: wrap; gap: 8px; }
@@ -313,9 +334,10 @@
     .avatar { width: 96px; height: 96px; }
     .entry { grid-template-columns: 1fr; gap: 4px; }
     .entry .when { padding-top: 0; }
-    .talk { grid-template-columns: 44px 1fr; }
-    .talk-logo { width: 44px; height: 44px; }
-    .talk .place { grid-column: 2; text-align: left; }
+    .talk { grid-template-columns: 64px 1fr; row-gap: 4px; }
+    .talk-pic { width: 64px; height: 64px; font-size: 1.3rem; }
+    .talk .when { grid-column: 2; text-align: left; }
+    .talk .upcoming { margin-top: 2px; }
     .pub { grid-template-columns: 72px 1fr; gap: 14px; }
     .thumb { width: 72px; height: 56px; font-size: 0.8rem; }
     nav .wrap { gap: 18px; overflow-x: auto; }
@@ -467,33 +489,42 @@
     <h2>Invited Talks</h2>
 
     <div class="talk">
-      <div class="talk-logo">G<img src="https://logo.clearbit.com/grammarly.com" alt="Grammarly"
-        onerror="this.remove()" /></div>
+      <div class="talk-pic" data-letter="U">
+        <img src="assets/talk-ukp.jpg" alt="UKP Lab talk"
+          onerror="this.onerror=function(){this.remove()};this.src='https://logo.clearbit.com/tu-darmstadt.de';this.classList.add('is-logo')" />
+      </div>
+      <div>
+        <div class="where">UKP Lab, TU Darmstadt</div>
+        <div class="ttl">Interpretability of vision-language models</div>
+        <div class="format">Online</div>
+      </div>
+      <div class="when">2025</div>
+    </div>
+
+    <div class="talk">
+      <div class="talk-pic" data-letter="G">
+        <img src="assets/talk-grammarly.jpg" alt="Grammarly talk"
+          onerror="this.onerror=function(){this.remove()};this.src='https://logo.clearbit.com/grammarly.com';this.classList.add('is-logo')" />
+      </div>
       <div>
         <div class="where">Grammarly</div>
         <div class="ttl">Interpretability of reasoning in language and vision-language models</div>
+        <div class="format">In person · New York, USA</div>
       </div>
-      <div class="place">Research talk</div>
+      <div class="when">2025</div>
     </div>
 
     <div class="talk">
-      <div class="talk-logo">I<img src="https://logo.clearbit.com/imperial.ac.uk" alt="Imperial College London"
-        onerror="this.remove()" /></div>
+      <div class="talk-pic" data-letter="I">
+        <img src="assets/talk-imperial.jpg" alt="Imperial College London talk"
+          onerror="this.onerror=function(){this.remove()};this.src='https://logo.clearbit.com/imperial.ac.uk';this.classList.add('is-logo')" />
+      </div>
       <div>
         <div class="where">Imperial College London</div>
         <div class="ttl">The geometry of numerical reasoning in large language models</div>
+        <div class="format">In person · London, UK</div>
       </div>
-      <div class="place">Invited talk</div>
-    </div>
-
-    <div class="talk">
-      <div class="talk-logo">T<img src="https://logo.clearbit.com/tu-darmstadt.de" alt="TU Darmstadt"
-        onerror="this.remove()" /></div>
-      <div>
-        <div class="where">TU Darmstadt — UKP Lab</div>
-        <div class="ttl">Interpretability of vision-language models</div>
-      </div>
-      <div class="place">Lab talk · Darmstadt</div>
+      <div class="when">Jun 30, 2026<br /><span class="upcoming">Upcoming</span></div>
     </div>
   </section>
 
