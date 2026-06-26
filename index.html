@@ -392,7 +392,8 @@
       Based at <em>MBZUAI</em>, Abu Dhabi.
     </p>
     <div class="links">
-      <a href="mailto:ahmedmohamedlemin@gmail.com">✉ Email</a>
+      <a href="mailto:ahmedmohamedlemin@gmail.com" id="email-link"
+         data-email="ahmedmohamedlemin@gmail.com">✉ Email</a>
       <a href="https://scholar.google.com/citations?user=on0NSNMAAAAJ&hl=en" target="_blank" rel="noopener">Google Scholar</a>
       <a href="https://www.linkedin.com/in/ahmedoumar/" target="_blank" rel="noopener">LinkedIn</a>
       <a href="https://github.com/ahmedoumar" target="_blank" rel="noopener">GitHub</a>
@@ -721,6 +722,39 @@
   </div>
 </footer>
 
-<script>document.getElementById("year").textContent = new Date().getFullYear();</script>
+<script>
+document.getElementById("year").textContent = new Date().getFullYear();
+
+(function () {
+  var link = document.getElementById("email-link");
+  if (!link) return;
+  link.addEventListener("click", function (e) {
+    e.preventDefault();
+    var email = link.dataset.email;
+    var original = link.textContent;
+    function done() {
+      link.textContent = "✓ Copied!";
+      setTimeout(function () { link.textContent = original; }, 1600);
+    }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(email).then(done, fallback);
+    } else {
+      fallback();
+    }
+    function fallback() {
+      var t = document.createElement("textarea");
+      t.value = email;
+      t.setAttribute("readonly", "");
+      t.style.position = "absolute";
+      t.style.left = "-9999px";
+      document.body.appendChild(t);
+      t.select();
+      try { document.execCommand("copy"); } catch (err) {}
+      document.body.removeChild(t);
+      done();
+    }
+  });
+})();
+</script>
 </body>
 </html>
