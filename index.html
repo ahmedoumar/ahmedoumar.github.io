@@ -257,24 +257,22 @@
     border-radius: 12px;
     overflow: hidden;
     border: 1px solid var(--line);
-    background: #e7e4dd;
+    background: #e8e4dc;
   }
   #map {
     width: 100%;
-    height: 380px;
+    height: 420px;
   }
   .map-legend {
     display: flex;
     gap: 18px;
-    padding: 14px 18px;
+    padding: 12px 18px;
     font-size: 0.78rem;
     color: var(--muted);
     flex-wrap: wrap;
+    align-items: center;
   }
-  .map-legend span { display: flex; align-items: center; gap: 5px; }
-  .map-dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
-  .map-dot.home  { background: var(--accent); }
-  .map-dot.visited { background: var(--muted); }
+  .map-legend .flag { font-size: 1.1rem; }
 
   /* ---------- Publications ---------- */
   .pub {
@@ -424,6 +422,31 @@
     text-align: center;
   }
 
+  /* ---------- Leaflet overrides ---------- */
+  .flag-marker {
+    font-size: 28px;
+    text-align: center;
+    line-height: 1;
+    filter: drop-shadow(0 1px 2px rgba(0,0,0,0.25));
+    transition: transform .15s;
+  }
+  .flag-marker:hover { transform: scale(1.3); }
+  .flag-marker.home-flag {
+    font-size: 36px;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+  }
+  .leaflet-tooltip.map-tooltip {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    padding: 4px 10px;
+    font-family: var(--sans);
+    font-size: 0.8rem;
+    color: var(--ink);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  }
+  .leaflet-tooltip.map-tooltip::before { border-top-color: var(--line); }
+
   @media (max-width: 620px) {
     header { padding-top: 56px; }
     .header-grid { flex-direction: column-reverse; align-items: flex-start; gap: 22px; }
@@ -439,7 +462,9 @@
     .thumb { width: 88px; height: 64px; font-size: 0.82rem; }
     nav .wrap { gap: 18px; overflow-x: auto; }
     .lang-list { grid-template-columns: 1fr; gap: 10px; }
-    #map { height: 280px; }
+    #map { height: 300px; }
+    .flag-marker { font-size: 22px; }
+    .flag-marker.home-flag { font-size: 28px; }
   }
 </style>
 </head>
@@ -477,9 +502,11 @@
     <a href="#research">Research</a>
     <a href="#publications">Publications</a>
     <a href="#talks">Talks</a>
-    <a href="#map-section">Travel</a>
     <a href="#experience">Experience</a>
+    <a href="#education">Education</a>
     <a href="#awards">Awards</a>
+    <a href="#languages">Languages</a>
+    <a href="#travel">Travel</a>
   </div>
 </nav>
 
@@ -512,52 +539,6 @@
       <span class="tag">Probing &amp; activation steering</span>
       <span class="tag">Low-resource &amp; Arabic NLP</span>
       <span class="tag">Multimodal reasoning</span>
-    </div>
-  </section>
-
-  <section id="languages">
-    <h2>Languages</h2>
-    <div class="lang-list">
-      <div class="lang-item native">
-        <span class="lang-name">Arabic</span>
-        <span class="lang-track"><span class="lang-fill" style="width:100%"></span></span>
-        <span class="lang-level">Native</span>
-      </div>
-      <div class="lang-item">
-        <span class="lang-name">English</span>
-        <span class="lang-track"><span class="lang-fill" style="width:100%"></span></span>
-        <span class="lang-level">Fluent</span>
-      </div>
-      <div class="lang-item">
-        <span class="lang-name">French</span>
-        <span class="lang-track"><span class="lang-fill" style="width:100%"></span></span>
-        <span class="lang-level">Fluent</span>
-      </div>
-      <div class="lang-item">
-        <span class="lang-name">Spanish</span>
-        <span class="lang-track"><span class="lang-fill" style="width:38%"></span></span>
-        <span class="lang-level">Basic</span>
-      </div>
-      <div class="lang-item">
-        <span class="lang-name">German</span>
-        <span class="lang-track"><span class="lang-fill" style="width:38%"></span></span>
-        <span class="lang-level">Basic</span>
-      </div>
-      <div class="lang-item">
-        <span class="lang-name">Urdu</span>
-        <span class="lang-track"><span class="lang-fill" style="width:38%"></span></span>
-        <span class="lang-level">Basic</span>
-      </div>
-      <div class="lang-item">
-        <span class="lang-name">Japanese</span>
-        <span class="lang-track"><span class="lang-fill" style="width:38%"></span></span>
-        <span class="lang-level">Basic</span>
-      </div>
-      <div class="lang-item">
-        <span class="lang-name">Russian</span>
-        <span class="lang-track"><span class="lang-fill" style="width:30%"></span></span>
-        <span class="lang-level">Reading</span>
-      </div>
     </div>
   </section>
 
@@ -700,18 +681,6 @@
     </div>
   </section>
 
-  <section id="map-section">
-    <h2>Where I've Been</h2>
-    <div class="map-wrap">
-      <div id="map"></div>
-      <div class="map-legend">
-        <span><span class="map-dot home"></span> Home country</span>
-        <span><span class="map-dot visited"></span> Visited</span>
-        <span style="margin-left:auto;color:var(--faint)">10 countries</span>
-      </div>
-    </div>
-  </section>
-
   <section id="experience">
     <h2>Experience</h2>
 
@@ -837,6 +806,63 @@
     </div>
   </section>
 
+  <section id="languages">
+    <h2>Languages</h2>
+    <div class="lang-list">
+      <div class="lang-item native">
+        <span class="lang-name">Arabic</span>
+        <span class="lang-track"><span class="lang-fill" style="width:100%"></span></span>
+        <span class="lang-level">Native</span>
+      </div>
+      <div class="lang-item">
+        <span class="lang-name">English</span>
+        <span class="lang-track"><span class="lang-fill" style="width:100%"></span></span>
+        <span class="lang-level">Fluent</span>
+      </div>
+      <div class="lang-item">
+        <span class="lang-name">French</span>
+        <span class="lang-track"><span class="lang-fill" style="width:100%"></span></span>
+        <span class="lang-level">Fluent</span>
+      </div>
+      <div class="lang-item">
+        <span class="lang-name">Spanish</span>
+        <span class="lang-track"><span class="lang-fill" style="width:38%"></span></span>
+        <span class="lang-level">Basic</span>
+      </div>
+      <div class="lang-item">
+        <span class="lang-name">German</span>
+        <span class="lang-track"><span class="lang-fill" style="width:38%"></span></span>
+        <span class="lang-level">Basic</span>
+      </div>
+      <div class="lang-item">
+        <span class="lang-name">Urdu</span>
+        <span class="lang-track"><span class="lang-fill" style="width:38%"></span></span>
+        <span class="lang-level">Basic</span>
+      </div>
+      <div class="lang-item">
+        <span class="lang-name">Japanese</span>
+        <span class="lang-track"><span class="lang-fill" style="width:38%"></span></span>
+        <span class="lang-level">Basic</span>
+      </div>
+      <div class="lang-item">
+        <span class="lang-name">Russian</span>
+        <span class="lang-track"><span class="lang-fill" style="width:30%"></span></span>
+        <span class="lang-level">Reading</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="travel">
+    <h2>Where I've Been</h2>
+    <div class="map-wrap">
+      <div id="map"></div>
+      <div class="map-legend">
+        <span><span class="flag">🇲🇷</span> Home</span>
+        <span style="color:var(--faint)">10 countries · 4 continents</span>
+      </div>
+    </div>
+  </section>
+
 </main>
 
 <footer>
@@ -886,56 +912,55 @@ document.getElementById("year").textContent = new Date().getFullYear();
   if (!mapEl) return;
 
   var map = L.map("map", {
-    center: [25, 15],
-    zoom: 2,
+    center: [25, 10],
+    zoom: 2.4,
     scrollWheelZoom: false,
-    zoomControl: true
+    zoomControl: true,
+    minZoom: 2
   });
 
-  L.tileLayer("https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png", {
-    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OSM</a> contributors &copy; <a href="https://carto.com/">CARTO</a>',
+  // Standard OpenStreetMap tiles — colorful and lively
+  L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
     maxZoom: 19
   }).addTo(map);
 
-  var homeIcon = L.divIcon({
-    className: "leaflet-marker-home",
-    html: '<svg width="20" height="20" viewBox="0 0 20 20"><circle cx="10" cy="10" r="7" fill="#8a3324" stroke="#fff" stroke-width="2.5"/><circle cx="10" cy="10" r="3" fill="#fff"/></svg>',
-    iconSize: [20, 20],
-    iconAnchor: [10, 10]
-  });
-
-  var visitedIcon = L.divIcon({
-    className: "leaflet-marker-visited",
-    html: '<svg width="14" height="14" viewBox="0 0 14 14"><circle cx="7" cy="7" r="5" fill="#5f6368" stroke="#fff" stroke-width="2"/></svg>',
-    iconSize: [14, 14],
-    iconAnchor: [7, 7]
-  });
-
   var places = [
-    { lat: 18.07, lng: -15.98, label: "Nouakchott, Mauritania", home: true },
-    { lat: 31.63, lng: -7.99, label: "Marrakech, Morocco" },
-    { lat: 24.45, lng: 54.38, label: "Abu Dhabi, UAE" },
-    { lat: 21.49, lng: 39.19, label: "Jeddah, Saudi Arabia" },
-    { lat: 13.76, lng: 100.50, label: "Bangkok, Thailand" },
-    { lat: 49.87, lng: 8.65, label: "Darmstadt, Germany" },
-    { lat: 51.51, lng: -0.13, label: "London, UK" },
-    { lat: 48.21, lng: 16.37, label: "Vienna, Austria" },
-    { lat: 40.71, lng: -74.01, label: "New York, USA" },
-    { lat: 48.15, lng: 17.11, label: "Bratislava, Slovakia" }
+    { lat: 18.07, lng: -15.98, flag: "🇲🇷", label: "Nouakchott, Mauritania", home: true },
+    { lat: 31.63, lng: -7.99, flag: "🇲🇦", label: "Marrakech, Morocco" },
+    { lat: 24.45, lng: 54.38, flag: "🇦🇪", label: "Abu Dhabi, UAE" },
+    { lat: 21.49, lng: 39.19, flag: "🇸🇦", label: "Jeddah, Saudi Arabia" },
+    { lat: 13.76, lng: 100.50, flag: "🇹🇭", label: "Bangkok, Thailand" },
+    { lat: 49.87, lng: 8.65, flag: "🇩🇪", label: "Darmstadt, Germany" },
+    { lat: 51.51, lng: -0.13, flag: "🇬🇧", label: "London, UK" },
+    { lat: 48.21, lng: 16.37, flag: "🇦🇹", label: "Vienna, Austria" },
+    { lat: 40.71, lng: -74.01, flag: "🇺🇸", label: "New York, USA" },
+    { lat: 48.15, lng: 17.11, flag: "🇸🇰", label: "Bratislava, Slovakia" }
   ];
 
-  places.forEach(function (p) {
-    var marker = L.marker([p.lat, p.lng], {
-      icon: p.home ? homeIcon : visitedIcon
-    }).addTo(map);
+  places.forEach(function (p, i) {
+    var cls = p.home ? "flag-marker home-flag" : "flag-marker";
+    var icon = L.divIcon({
+      className: cls,
+      html: p.flag,
+      iconSize: p.home ? [36, 36] : [28, 28],
+      iconAnchor: p.home ? [18, 18] : [14, 14]
+    });
+
+    var marker = L.marker([p.lat, p.lng], { icon: icon }).addTo(map);
     marker.bindTooltip(p.label, {
       direction: "top",
-      offset: [0, p.home ? -12 : -9],
+      offset: [0, p.home ? -18 : -14],
       className: "map-tooltip"
     });
+
+    // Subtle staggered pop-in
+    setTimeout(function () {
+      marker.setOpacity(1);
+    }, i * 80);
   });
 
-  // Animate bars when they scroll into view
+  // Animate language bars when they scroll into view
   var barsAnimated = false;
   function animateBars() {
     if (barsAnimated) return;
