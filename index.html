@@ -88,9 +88,10 @@
   h1 {
     font-family: var(--serif);
     font-weight: 500;
-    font-size: clamp(2.4rem, 6vw, 3.4rem);
-    line-height: 1.05;
-    letter-spacing: -0.01em;
+    font-size: clamp(1.9rem, 5.2vw, 2.7rem);
+    line-height: 1.1;
+    letter-spacing: -0.015em;
+    white-space: nowrap;
     margin: 0 0 18px;
   }
   .tagline {
@@ -307,6 +308,7 @@
 
   @media (max-width: 620px) {
     header { padding-top: 56px; }
+    h1 { white-space: normal; }
     .header-grid { flex-direction: column-reverse; align-items: flex-start; gap: 22px; }
     .avatar { width: 96px; height: 96px; }
     .entry { grid-template-columns: 1fr; gap: 4px; }
@@ -369,10 +371,11 @@
     </p>
     <p>
       Alongside my doctoral work I am the founder of <a href="https://databayt.ai" target="_blank" rel="noopener">DataBayt.AI</a>,
-      building open-source software and datasets for the AI community, and I collaborate with the
-      <a href="https://www.informatik.tu-darmstadt.de/ukp/ukp_home/index.en.jsp" target="_blank" rel="noopener">UKP Lab</a>
-      and the RIKEN Advanced Intelligence Project. I previously worked on generative AI for
-      low-resource languages, machine translation, and large-scale dataset design.
+      building open-source software and datasets for the AI community. I collaborate with the
+      <a href="https://www.riken.jp/en/research/labs/aip/" target="_blank" rel="noopener">RIKEN Advanced Intelligence Project</a>,
+      among other collaborators including Imperial College London and King's College London.
+      I previously worked on generative AI for low-resource languages, machine translation,
+      and large-scale dataset design.
     </p>
   </section>
 
